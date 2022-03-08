@@ -14,11 +14,11 @@ public class BewegungX : MonoBehaviour
     [SerializeField] private Transform kami;
     [SerializeField] private Transform respaaan;
     [SerializeField] private Transform Teil;
-    [SerializeField] private LayerMask Player;
+    [SerializeField] private LayerMask Penis;
     [SerializeField] private float Bewegungszeug = 20f;
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == Player)
+        if (other.tag == "Player")
         {
             playa.position = respaaan.position;
             kami.position = new Vector3(respaaan.position.x, respaaan.position.y, -1f);
