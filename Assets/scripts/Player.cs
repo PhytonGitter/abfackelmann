@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
         line.enabled = false;
         seil.enabled = false;
         Richtung = 0;
-        rb.drag = 2f;
+        rb.drag = 1f;
         rope.enableCollision = true;
        
 }
@@ -124,8 +124,7 @@ public class Player : MonoBehaviour
                     if (hit.collider != null)
                     {
                         omg = rb.velocity.x;
-                        if (speed < 20f)
-                        { speed += 5f; }
+                       
 
                         checker = false;
                         SetRope(hit);
@@ -224,6 +223,8 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
+        
+
         if(Jumpchecker == false && isGrounded == false)
         {
             if(i>20)
@@ -243,11 +244,20 @@ public class Player : MonoBehaviour
         else { Jump = false; }
        
         
-       // else { circ.radius = radi; }
+       
         float speady = 6f;
         if (isGrounded == true)
         {
             speed = 15f;
+            if (rb.velocity.x > speed)
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+            }
+            else if (rb.velocity.x < -speed)
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+            }
+            
             if (Richtung == 0)
             {
 
@@ -281,15 +291,13 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (speed > 15f)
-            {
-                float speed2 = 5f;
-                rb.AddForce(new Vector2(speed2 * Richtung, 0), ForceMode2D.Impulse);
-            }
-            else
-            {
-                rb.AddForce(new Vector2(speady * Richtung, 0), ForceMode2D.Impulse);
-            }
+            if (rb.velocity.x <= speed  && Richtung == 1)
+            { rb.AddForce(new Vector2(speady * Richtung, 0), ForceMode2D.Impulse); }
+           else if (rb.velocity.x >= -speed  && Richtung == -1)
+            { rb.AddForce(new Vector2(speady * Richtung, 0), ForceMode2D.Impulse); }
+
+
+
 
         }
         if (Wand4)
@@ -388,14 +396,7 @@ public class Player : MonoBehaviour
 
             }
         }
-        if (rb.velocity.x > speed)
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-        }
-        else if (rb.velocity.x < -speed)
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
+        
     }
 
 
