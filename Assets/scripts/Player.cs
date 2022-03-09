@@ -291,6 +291,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            speady = 3f;
             if (rb.velocity.x <= speed  && Richtung == 1)
             { rb.AddForce(new Vector2(speady * Richtung, 0), ForceMode2D.Impulse); }
            else if (rb.velocity.x >= -speed  && Richtung == -1)
